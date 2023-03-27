@@ -11,7 +11,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_DEBUG_POSTFIX "d")
 
-if (WIN32)
+if(WIN32)
+    # links with system libraries that don't have static options, so must link with dynamic crt
+    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
     set(CMAKE_STATIC_LIBRARY_SUFFIX ".static.lib")
 endif()
 
@@ -30,8 +32,14 @@ target_include_directories(Orochi PUBLIC
     $<INSTALL_INTERFACE:Orochi>)
 
 # Platform-specific settings
-if(UNIX AND NOT APPLE)
+if (WIN32)
+    target_compile_definitions(Orochi PUBLIC _CRT_SECURE_NO_WARNINGS)
+elseif(UNIX AND NOT APPLE)
     link_libraries(dl)
+endif()
+
+if (MSVC)
+    target_link_libraries(Orochi PUBLIC version)
 endif()
 
 if(WIN32)

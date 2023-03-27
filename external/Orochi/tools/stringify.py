@@ -66,7 +66,7 @@ def printfile(filename, ans, enablePrint, api):
         return ans
 
 def stringify(filename, stringname, api):
-    print ('static const char* '+stringname+'= \\')
+    print ('static constexpr const char* '+stringname+'= \\')
     ans = ''
     ans = printfile( filename, ans, 1, api )
     if( ekey != '' ):
@@ -111,13 +111,13 @@ for file in files:
     stringname = api + '_'+stringname.split('/')[-1]
     stringify( dir+file, stringname, api )
 #
-log = open('tahoePy.log', 'w')
-log.write(">> Registerd Defs\n")
-defKeys = defines.keys()
-for key in defKeys:
-    log.write( "  #define {0}   => {1}\n".format(key, defines[key]) )
-log.write("\n")
-log.write(">> Replaced Defs\n")
-for r in replaced:
-    log.write( "  %s\n"%r )
-log.close()
+# log = open('tahoePy.log', 'w')
+# log.write(">> Registerd Defs\n")
+# defKeys = defines.keys()
+# for key in defKeys:
+#     log.write( "  #define {0}   => {1}\n".format(key, defines[key]) )
+# log.write("\n")
+# log.write(">> Replaced Defs\n")
+# for r in replaced:
+#     log.write( "  %s\n"%r )
+# log.close()

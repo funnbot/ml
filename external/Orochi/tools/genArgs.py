@@ -9,9 +9,9 @@ def genArgs( fileName, api, includes ):
         iName = os.path.basename( fileName ).split('.')[0]
         
         print( '#if !defined(ORO_PP_LOAD_FROM_STRING)' )
-        print( '	static const char** '+iName+'Args = 0;' )
+        print( '	static constexpr const char** '+iName+'Args = 0;' )
         print( '#else' )
-        print( '	static const char* '+iName+'Args[] = {' )
+        print( '	static constexpr const char* '+iName+'Args[] = {' )
         includes += iName +'Includes[] = {'
         for line in f.readlines():
             a = line.strip('\r\n')
@@ -48,7 +48,7 @@ api = 'hip'
 # Visit each file
 print( 'namespace ' + api + ' {')
 
-includes = 'static const char* '
+includes = 'static constexpr const char* '
 for s in files:
     includes = genArgs(s, api, includes)
 includes += '};'
