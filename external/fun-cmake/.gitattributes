@@ -1,0 +1,3 @@
+*.cmake text
+
+.gitattributes text export-ignore
